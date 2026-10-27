@@ -71,7 +71,11 @@
       "target": [
         "nsis",
         "portable"
-      ]
+      ],
+      "artifactName": "${productName}-${version}-${arch}.${ext}"
+    },
+    "nsis": {
+      "artifactName": "${productName}-Setup-${version}.${ext}"
     },
     "mac": {
       "icon": "build/icon.png",
