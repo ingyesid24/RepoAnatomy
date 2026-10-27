@@ -21,7 +21,7 @@ export type UpdateStatus =
   | { type: 'downloaded'; version: string }
   | { type: 'error'; error: string };
 
-export interface CodeAtlasAPI {
+export interface RepoAnatomyAPI {
   selectFolder: () => Promise<
     { ok: true; path: string | null } | { ok: false; error: string }
   >;
@@ -44,7 +44,7 @@ export interface CodeAtlasAPI {
   installUpdate: () => Promise<{ ok: true } | { ok: false; error: string }>;
 }
 
-const api: CodeAtlasAPI = {
+const api: RepoAnatomyAPI = {
   selectFolder: () => ipcRenderer.invoke('select-folder'),
   analyzeProject: (folderPath: string, onProgress?: (progress: AnalysisProgress) => void) => {
     if (!onProgress) return ipcRenderer.invoke('analyze-project', folderPath);
@@ -74,4 +74,4 @@ const api: CodeAtlasAPI = {
   installUpdate: () => ipcRenderer.invoke('install-update')
 };
 
-contextBridge.exposeInMainWorld('codeatlas', api);
+contextBridge.exposeInMainWorld('repoanatomy', api);

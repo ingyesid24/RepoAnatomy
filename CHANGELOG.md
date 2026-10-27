@@ -1,8 +1,30 @@
 # Changelog
 
-Todas las versiones notables de CodeAtlas se documentan en este archivo.
+Todas las versiones notables de RepoAnatomy se documentan en este archivo.
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es/1.1.0/) y el versionado es [SemVer](https://semver.org/lang/es/).
+
+## [2.0.0] - 2026-10-27
+
+Rebrand: CodeAtlas pasa a llamarse RepoAnatomy.
+
+### Cambiado
+
+- Nombre visible, icono y textos de la app a RepoAnatomy.
+- Repositorio de publicación y feed de actualizaciones a `ingyesid24/RepoAnatomy`.
+- Launcher de Linux a `~/.local/bin/repoanatomy`, con compatibilidad para `~/.local/bin/codeatlas` y para AppImages `CodeAtlas-*.AppImage`.
+- El `.desktop` existente se actualiza en sitio (`Name=RepoAnatomy`, `Icon=repoanatomy`) para no duplicar accesos en el menú.
+- Exportación de grafo a `repoanatomy-graph.json`.
+
+### Conservado a propósito
+
+- `appId` `com.yesidcastro.codeatlas` y la carpeta de datos del usuario, para que la actualización desde 1.4.0 sea in-place.
+- La redirección de GitHub del repo `CodeAtlas` al repo `RepoAnatomy`, para que las instalaciones viejas encuentren la v2.0.0.
+
+### Notas de migración
+
+- No crear un repositorio nuevo llamado `CodeAtlas`: desactivaría la redirección y rompería las actualizaciones de la v1.4.0.
+- En Linux, si el acceso del menú apuntaba al launcher viejo, la primera ejecución de la v2.0.0 lo actualiza y deja el comando `codeatlas` como alias.
 
 ## [1.4.0] - 2026-09-21
 
@@ -137,10 +159,11 @@ MVP: analizador JavaScript/TypeScript y aplicación Electron.
 - Suite automatizada del analizador con Vitest.
 - Workflow de GitHub Actions para compilar Linux, Windows y macOS y publicar releases al crear un tag `v*`.
 
-[1.4.0]: https://github.com/ingyesid24/CodeAtlas/releases/tag/v1.4.0
-[1.3.2]: https://github.com/ingyesid24/CodeAtlas/releases/tag/v1.3.2
-[1.3.1]: https://github.com/ingyesid24/CodeAtlas/releases/tag/v1.3.1
-[1.3.0]: https://github.com/ingyesid24/CodeAtlas/releases/tag/v1.3.0
-[1.2.0]: https://github.com/ingyesid24/CodeAtlas/releases/tag/v1.2.0
-[1.1.0]: https://github.com/ingyesid24/CodeAtlas/releases/tag/v1.1.0
-[0.1.0]: https://github.com/ingyesid24/CodeAtlas/releases/tag/v0.1.0
+[2.0.0]: https://github.com/ingyesid24/RepoAnatomy/releases/tag/v2.0.0
+[1.4.0]: https://github.com/ingyesid24/RepoAnatomy/releases/tag/v1.4.0
+[1.3.2]: https://github.com/ingyesid24/RepoAnatomy/releases/tag/v1.3.2
+[1.3.1]: https://github.com/ingyesid24/RepoAnatomy/releases/tag/v1.3.1
+[1.3.0]: https://github.com/ingyesid24/RepoAnatomy/releases/tag/v1.3.0
+[1.2.0]: https://github.com/ingyesid24/RepoAnatomy/releases/tag/v1.2.0
+[1.1.0]: https://github.com/ingyesid24/RepoAnatomy/releases/tag/v1.1.0
+[0.1.0]: https://github.com/ingyesid24/RepoAnatomy/releases/tag/v0.1.0

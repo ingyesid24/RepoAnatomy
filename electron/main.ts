@@ -10,7 +10,9 @@ import type { UpdateStatus } from './preload';
 import {
   buildDesktopEntry,
   buildLauncherScript,
-  launcherPath
+  buildLegacyLauncherScript,
+  launcherPath,
+  legacyLauncherPath
 } from '../src/platform/linuxLauncher';
 import {
   buildEditorCommand,
@@ -20,6 +22,29 @@ import {
 } from '../src/editors/registry';
 
 const isDev = process.env.NODE_ENV === 'development';
+
+app.setName('RepoAnatomy');
+
+// La app instalada como CodeAtlas guarda preferencias en una carpeta distinta.
+// Mantener esa ruta evita perder el editor preferido al actualizar a 2.0.0.
+function preserveLegacyUserData() {
+  if (isDev) return;
+
+  try {
+    const appData = app.getPath('appData');
+    for (const legacyName of ['CodeAtlas', 'codeatlas']) {
+      const legacyPath = path.join(appData, legacyName);
+      if (fs.existsSync(legacyPath)) {
+        app.setPath('userData', legacyPath);
+        return;
+      }
+    }
+  } catch {
+    // Si no se puede conservar, Electron usara la ruta nueva.
+  }
+}
+
+preserveLegacyUserData();
 
 let mainWindow: BrowserWindow | null = null;
 
@@ -97,6 +122,7 @@ function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1280,
     height: 800,
+    title: 'RepoAnatomy',
     backgroundColor: '#0F1B2B',
     icon: path.join(__dirname, '../../build/icon.png'),
     webPreferences: {
@@ -125,8 +151,11 @@ function ensureDesktopIntegration() {
     const homeDir = os.homedir();
     const appsDir = path.join(homeDir, '.local/share/applications');
     const iconsDir = path.join(homeDir, '.local/share/icons/hicolor/512x512/apps');
+    // Se conserva el nombre del archivo .desktop para que el acceso del menú
+    // ya existente se actualice en sitio en vez de duplicarse. Lo que cambia
+    // es su contenido: Name, Icon, Exec y StartupWMClass.
     const desktopPath = path.join(appsDir, 'codeatlas.desktop');
-    const iconPath = path.join(iconsDir, 'codeatlas.png');
+    const iconPath = path.join(iconsDir, 'repoanatomy.png');
     const iconSource = path.join(__dirname, '../../build/icon.png');
 
     // Launcher estable: el .desktop nunca apunta a un AppImage con nombre
@@ -140,6 +169,18 @@ function ensureDesktopIntegration() {
       fs.mkdirSync(path.dirname(launcher), { recursive: true });
       fs.writeFileSync(launcher, launcherScript, { mode: 0o755 });
       fs.chmodSync(launcher, 0o755);
+    }
+
+    // El comando anterior sigue funcionando tras el cambio de marca.
+    const legacyLauncher = legacyLauncherPath(homeDir);
+    const legacyLauncherScript = buildLegacyLauncherScript();
+    const existingLegacyLauncher = fs.existsSync(legacyLauncher)
+      ? fs.readFileSync(legacyLauncher, 'utf8')
+      : null;
+    if (existingLegacyLauncher !== legacyLauncherScript) {
+      fs.mkdirSync(path.dirname(legacyLauncher), { recursive: true });
+      fs.writeFileSync(legacyLauncher, legacyLauncherScript, { mode: 0o755 });
+      fs.chmodSync(legacyLauncher, 0o755);
     }
 
     // Entrada .desktop estable (apunta al launcher, no al AppImage versionado).
@@ -419,8 +460,8 @@ ipcMain.handle('export-graph', async (event, graph: unknown) => {
     }
 
     const result = await dialog.showSaveDialog(mainWindow, {
-      title: 'Exportar grafo de CodeAtlas',
-      defaultPath: path.join(app.getPath('documents'), 'codeatlas-graph.json'),
+      title: 'Exportar grafo de RepoAnatomy',
+      defaultPath: path.join(app.getPath('documents'), 'repoanatomy-graph.json'),
       filters: [{ name: 'JSON', extensions: ['json'] }]
     });
 

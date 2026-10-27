@@ -1,15 +1,15 @@
-# CodeAtlas
+# RepoAnatomy
 
 > Understand any codebase in minutes.
 
-CodeAtlas es una aplicación de escritorio que analiza proyectos locales y presenta su estructura y señales arquitectónicas en una interfaz navegable. La versión `1.4` suma soporte para proyectos JVM (Java y Kotlin) además de JavaScript y TypeScript.
+RepoAnatomy es una aplicación de escritorio que analiza proyectos locales y presenta su estructura y señales arquitectónicas en una interfaz navegable. La versión `2.0` mantiene el soporte para proyectos JVM (Java y Kotlin) además de JavaScript y TypeScript.
 
 ## Versión, fase y descargas
 
 | Campo          | Valor                                                  |
 | -------------- | ------------------------------------------------------ |
-| **Versión**    | `1.4.0` (`package.json`) — visible en la barra de la app |
-| **Fase**       | v0.5 · Expansión JVM                                    |
+| **Versión**    | `2.0.0` (`package.json`) — visible en la barra de la app |
+| **Fase**       | v1.0 · Rebrand y consolidación                          |
 | **Licencia**   | MIT                                                    |
 
 ### Plataformas disponibles
@@ -24,15 +24,26 @@ El CI publica `.AppImage` en Linux porque el `.snap` requiere `snapcraft`; local
 
 ### Descargar
 
-Los binarios se generan automáticamente con GitHub Actions al crear un tag `v*` y se publican en [GitHub Releases](https://github.com/ingyesid24/CodeAtlas/releases). Descarga el artefacto de tu sistema operativo en la última release.
+Los binarios se generan automáticamente con GitHub Actions al crear un tag `v*` y se publican en [GitHub Releases](https://github.com/ingyesid24/RepoAnatomy/releases). Descarga el artefacto de tu sistema operativo en la última release.
 
 > Desde la v1.2.0 la app comprueba actualizaciones automáticamente y avisa dentro de la interfaz cuando hay una versión nueva. Las versiones anteriores deben actualizarse manualmente una vez.
 
 > Los binarios no están firmados: en Windows el SmartScreen y en macOS Gatekeeper mostrarán una advertencia al primer arranque (se salta con "Más información → Ejecutar de todas formas" / clic derecho → Abrir).
 
+## Migración desde CodeAtlas
+
+La v2.0.0 es un rebrand de CodeAtlas. Para no romper las instalaciones existentes:
+
+- Se conserva el `appId` `com.yesidcastro.codeatlas` y la carpeta de datos del usuario.
+- El repo de GitHub se renombra a `RepoAnatomy`; GitHub mantiene la redirección desde `CodeAtlas`, así que la v1.4.0 encuentra la v2.0.0.
+- En Linux, el launcher pasa a `~/.local/bin/repoanatomy` y se mantiene `~/.local/bin/codeatlas` como compatibilidad. El `.desktop` existente se actualiza en sitio.
+- El launcher acepta tanto `RepoAnatomy-*.AppImage` como `CodeAtlas-*.AppImage` durante la transición.
+
+> No crear un repositorio nuevo llamado `CodeAtlas`: desactivaría la redirección de GitHub y rompería las actualizaciones de la v1.4.0.
+
 ## Estado actual
 
-La v0.5 expande el análisis a proyectos JVM (Java y Kotlin):
+La v2.0.0 conserva el análisis de proyectos JVM (Java y Kotlin) que incorporó la v1.4:
 
 - Detección de `pom.xml` (Maven) y `build.gradle`/`build.gradle.kts` (Gradle) como proyectos JVM, con sus dependencias (`groupId:artifactId:version` y scope).
 - Detección de imports Java y Kotlin, resolviendo las clases locales del propio proyecto a su archivo fuente (convención Java: nombre de archivo = nombre de clase). Los imports de la JDK y de librerías externas se conservan sin resolver.
@@ -155,7 +166,7 @@ Detecta `pom.xml` (Maven) y `build.gradle`/`build.gradle.kts` (Gradle) como proy
 
 ### Alcance
 
-- v0.5 analiza proyectos JVM (Java y Kotlin) además de JavaScript y TypeScript.
+- v1.4 analiza proyectos JVM (Java y Kotlin) además de JavaScript y TypeScript.
 
 ## Formato del grafo (`ArchitectureGraph`)
 
@@ -266,12 +277,12 @@ Genera los artefactos del sistema operativo actual en `release/`:
 
 Cada plataforma se compila en su propio sistema: Windows no se puede empaquetar desde Linux (requiere Wine) y macOS solo se empaqueta en macOS. El workflow `.github/workflows/build.yml` compila las tres plataformas en GitHub Actions y publica un release automáticamente al crear un tag `v*`. La firma se habilita configurando `CSC_LINK`/`CSC_KEY_PASSWORD` (macOS y Windows) en el CI.
 
-En Linux, la primera vez que se ejecuta el AppImage la app se integra sola en el menú y el dock de GNOME (genera la entrada `.desktop` y el ícono en `~/.local/share`). El acceso usa un launcher estable (`~/.local/bin/codeatlas`) que busca el AppImage más reciente, de modo que las actualizaciones automáticas no rompen el acceso del menú.
+En Linux, la primera vez que se ejecuta el AppImage la app se integra sola en el menú y el dock de GNOME (genera la entrada `.desktop` y el ícono en `~/.local/share`). El acceso usa un launcher estable (`~/.local/bin/repoanatomy`) que busca el AppImage más reciente, de modo que las actualizaciones automáticas no rompen el acceso del menú.
 
 ## Estructura
 
 ```text
-codeatlas/
+repoanatomy/
 ├── electron/
 │   ├── main.ts              # Ventana, validación, IPC y ciclo de vida del worker
 │   ├── analyzerWorker.ts    # Ejecuta el análisis en worker_threads y reporta progreso
@@ -319,7 +330,7 @@ El renderer no accede directamente a Node.js. `preload.ts` expone una API mínim
 
 El análisis corre en un hilo aparte (`electron/analyzerWorker.ts`, vía `worker_threads`): el proceso principal valida la ruta, lanza el worker y reenvía al renderer los eventos de progreso por IPC; el renderer no se congela aunque el proyecto sea grande.
 
-En Linux AppImage, `ensureDesktopIntegration()` escribe un launcher estable (`~/.local/bin/codeatlas`, `src/platform/linuxLauncher.ts`) y una entrada `.desktop` que siempre apunta a ese launcher, no al AppImage versionado: así las actualizaciones automáticas no rompen el acceso del menú. El launcher busca el AppImage más reciente en el directorio de instalación y lo ejecuta.
+En Linux AppImage, `ensureDesktopIntegration()` escribe un launcher estable (`~/.local/bin/repoanatomy`, `src/platform/linuxLauncher.ts`) y una entrada `.desktop` que siempre apunta a ese launcher, no al AppImage versionado: así las actualizaciones automáticas no rompen el acceso del menú. El launcher busca el AppImage más reciente en el directorio de instalación y lo ejecuta.
 
 `ArchitectureGraph` es un modelo de dominio serializable e independiente de React Flow. Sus IDs y rutas están normalizados para que el mismo análisis sea estable en distintos sistemas operativos. `graphMapper.ts` convierte el modelo en nodos y aristas de React Flow con posiciones deterministas, y `GraphView.tsx` lo renderiza en el mapa interactivo de módulos.
 

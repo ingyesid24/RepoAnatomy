@@ -85,7 +85,7 @@ describe('scanDirectory', () => {
   });
 
   it('lanza un error legible si la carpeta raíz no existe', () => {
-    const fakeRoot = path.join('/tmp', `codeatlas-nonexistent-${Date.now()}`);
+    const fakeRoot = path.join('/tmp', `repoanatomy-nonexistent-${Date.now()}`);
 
     expect(() => scanDirectory(fakeRoot)).toThrow('No se pudo leer la carpeta seleccionada');
   });

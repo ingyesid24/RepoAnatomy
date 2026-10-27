@@ -5,7 +5,7 @@ import * as path from 'path';
 export type FixtureTree = { [name: string]: string | FixtureTree };
 
 export function createTempProject(tree: FixtureTree): string {
-  const rootPath = fs.mkdtempSync(path.join(os.tmpdir(), 'codeatlas-test-'));
+  const rootPath = fs.mkdtempSync(path.join(os.tmpdir(), 'repoanatomy-test-'));
   writeTree(rootPath, tree);
   return rootPath;
 }

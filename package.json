@@ -1,6 +1,6 @@
 {
-  "name": "codeatlas",
-  "version": "1.4.0",
+  "name": "repoanatomy",
+  "version": "2.0.0",
   "private": true,
   "description": "Understand any codebase in minutes.",
   "author": "Yesid Andres Castro",
@@ -42,7 +42,7 @@
   },
   "build": {
     "appId": "com.yesidcastro.codeatlas",
-    "productName": "CodeAtlas",
+    "productName": "RepoAnatomy",
     "icon": "build/icon.png",
     "files": [
       "dist/**/*",
@@ -55,7 +55,7 @@
     "publish": {
       "provider": "github",
       "owner": "ingyesid24",
-      "repo": "CodeAtlas",
+      "repo": "RepoAnatomy",
       "releaseType": "release"
     },
     "linux": {

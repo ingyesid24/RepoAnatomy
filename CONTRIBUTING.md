@@ -1,6 +1,6 @@
-# Contribuir a CodeAtlas
+# Contribuir a RepoAnatomy
 
-Gracias por ayudar a construir CodeAtlas. El objetivo es mantener una base pequeña, legible y fácil de verificar.
+Gracias por ayudar a construir RepoAnatomy. El objetivo es mantener una base pequeña, legible y fácil de verificar.
 
 ## Preparación
 

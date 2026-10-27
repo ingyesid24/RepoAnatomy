@@ -8,7 +8,8 @@ import pkg from '../package.json';
 
 type Status = 'idle' | 'scanning' | 'done' | 'error';
 
-const EDITOR_STORAGE_KEY = 'codeatlas.preferred-editor';
+const EDITOR_STORAGE_KEY = 'repoanatomy.preferred-editor';
+const LEGACY_EDITOR_STORAGE_KEY = 'codeatlas.preferred-editor';
 
 export default function App() {
   const [status, setStatus] = useState<Status>('idle');
@@ -22,7 +23,7 @@ export default function App() {
   const [updateStatus, setUpdateStatus] = useState<UpdateStatus | null>(null);
 
   useEffect(() => {
-    return window.codeatlas.onUpdateStatus(setUpdateStatus);
+    return window.repoanatomy.onUpdateStatus(setUpdateStatus);
   }, []);
 
   // El aviso "estás al día" desaparece solo.
@@ -34,25 +35,26 @@ export default function App() {
 
   async function handleCheckUpdates() {
     setUpdateStatus({ type: 'checking' });
-    const response = await window.codeatlas.checkForUpdates();
+    const response = await window.repoanatomy.checkForUpdates();
     if (!response.ok) setUpdateStatus({ type: 'error', error: response.error });
   }
 
   async function handleDownloadUpdate() {
-    const response = await window.codeatlas.downloadUpdate();
+    const response = await window.repoanatomy.downloadUpdate();
     if (!response.ok) setUpdateStatus({ type: 'error', error: response.error });
   }
 
   async function handleInstallUpdate() {
-    await window.codeatlas.installUpdate();
+    await window.repoanatomy.installUpdate();
   }
 
   useEffect(() => {
     let cancelled = false;
-    window.codeatlas.detectEditors().then((response) => {
+    window.repoanatomy.detectEditors().then((response) => {
       if (!response.ok || cancelled) return;
       setEditors(response.editors);
-      const saved = localStorage.getItem(EDITOR_STORAGE_KEY);
+      const saved =
+        localStorage.getItem(EDITOR_STORAGE_KEY) ?? localStorage.getItem(LEGACY_EDITOR_STORAGE_KEY);
       const preferred =
         response.editors.find((editor) => editor.id === saved) ?? response.editors[0];
       if (preferred) setEditorId(preferred.id);
@@ -65,7 +67,7 @@ export default function App() {
   async function handleOpenFile(file: string, line?: number) {
     if (!result || !editorId) return;
     setOpenError('');
-    const response = await window.codeatlas.openInEditor({
+    const response = await window.repoanatomy.openInEditor({
       editorId,
       rootPath: result.rootPath,
       file,
@@ -76,7 +78,7 @@ export default function App() {
 
   async function handleSelectFolder() {
     try {
-      const selection = await window.codeatlas.selectFolder();
+      const selection = await window.repoanatomy.selectFolder();
       if (!selection.ok) {
         setErrorMsg(selection.error);
         setStatus('error');
@@ -89,7 +91,7 @@ export default function App() {
       setResult(null);
       setProgress(null);
 
-      const response = await window.codeatlas.analyzeProject(selection.path, setProgress);
+      const response = await window.repoanatomy.analyzeProject(selection.path, setProgress);
 
       if (response.ok) {
         setResult(response.data);
@@ -107,7 +109,7 @@ export default function App() {
   async function handleExportGraph() {
     if (!result) return;
     setExportMsg('');
-    const response = await window.codeatlas.exportGraph(result.graph);
+    const response = await window.repoanatomy.exportGraph(result.graph);
     if (response.ok) {
       if (response.path) setExportMsg(`Grafo guardado en ${response.path}`);
     } else {
@@ -118,10 +120,10 @@ export default function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <div className="eyebrow">CodeAtlas · v{pkg.version}</div>
+        <div className="eyebrow">RepoAnatomy · v{pkg.version}</div>
         <h1>Understand any codebase in minutes.</h1>
         <div className="app-header-actions">
-          <button className="ghost-btn" onClick={handleCheckUpdates} title="Buscar una versión más reciente de CodeAtlas">
+          <button className="ghost-btn" onClick={handleCheckUpdates} title="Buscar una versión más reciente de RepoAnatomy">
             Buscar actualizaciones
           </button>
           <button className="primary-btn" onClick={handleSelectFolder} disabled={status === 'scanning'}>
