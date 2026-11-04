@@ -9,7 +9,7 @@
 ![Plataformas](https://img.shields.io/badge/plataformas-Linux%20%7C%20Windows%20%7C%20macOS-informational)
 [![Sponsor](https://img.shields.io/badge/sponsor-%E2%9D%A4-ea4aaa)](https://github.com/sponsors/ingyesid24)
 
-**[Web y documentación](https://codeatlas-web-rho.vercel.app/)** · **[Descargar](https://github.com/ingyesid24/RepoAnatomy/releases/latest)** · **[Changelog](CHANGELOG.md)**
+**[Web y documentación](https://repoanatomy.vercel.app/)** · **[Descargar](https://github.com/ingyesid24/RepoAnatomy/releases/latest)** · **[Changelog](CHANGELOG.md)**
 
 RepoAnatomy es una aplicación de escritorio que analiza proyectos locales y presenta su estructura y señales arquitectónicas en una interfaz navegable. La versión `2.0` mantiene el soporte para proyectos JVM (Java y Kotlin) además de JavaScript y TypeScript.
 
