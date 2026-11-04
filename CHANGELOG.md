@@ -4,6 +4,16 @@ Todas las versiones notables de RepoAnatomy se documentan en este archivo.
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es/1.1.0/) y el versionado es [SemVer](https://semver.org/lang/es/).
 
+## [Sin publicar]
+
+### Seguridad
+- Electron 31 → 45 (Electron 31 ya no recibía parches de seguridad).
+- electron-builder 24 → 26 y electron-updater 6.8.11.
+- `@typescript-eslint/typescript-estree` 7 → 8 (elimina dependencias vulnerables del parser).
+
+### Documentación
+- Badges y enlaces a la web, descargas y changelog en el README.
+
 ## [2.0.0] - 2026-10-27
 
 Rebrand: CodeAtlas pasa a llamarse RepoAnatomy.

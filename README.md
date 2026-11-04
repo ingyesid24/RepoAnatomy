@@ -2,6 +2,15 @@
 
 > Understand any codebase in minutes.
 
+[![Release](https://img.shields.io/github/v/release/ingyesid24/RepoAnatomy)](https://github.com/ingyesid24/RepoAnatomy/releases/latest)
+[![Build](https://github.com/ingyesid24/RepoAnatomy/actions/workflows/build.yml/badge.svg)](https://github.com/ingyesid24/RepoAnatomy/actions/workflows/build.yml)
+[![Descargas](https://img.shields.io/github/downloads/ingyesid24/RepoAnatomy/total)](https://github.com/ingyesid24/RepoAnatomy/releases)
+[![Licencia: MIT](https://img.shields.io/badge/licencia-MIT-blue.svg)](LICENSE)
+![Plataformas](https://img.shields.io/badge/plataformas-Linux%20%7C%20Windows%20%7C%20macOS-informational)
+[![Sponsor](https://img.shields.io/badge/sponsor-%E2%9D%A4-ea4aaa)](https://github.com/sponsors/ingyesid24)
+
+**[Web y documentación](https://repoanatomy.vercel.app/)** · **[Descargar](https://github.com/ingyesid24/RepoAnatomy/releases/latest)** · **[Changelog](CHANGELOG.md)**
+
 RepoAnatomy es una aplicación de escritorio que analiza proyectos locales y presenta su estructura y señales arquitectónicas en una interfaz navegable. La versión `2.0` mantiene el soporte para proyectos JVM (Java y Kotlin) además de JavaScript y TypeScript.
 
 ## Versión, fase y descargas
@@ -76,7 +85,7 @@ La v1.1 incluye (además de todo el MVP):
 
 El núcleo del MVP incluye:
 
-- Electron, React, TypeScript y Vite.
+- Electron 45, React, TypeScript y Vite.
 - Selección segura de un repositorio local mediante IPC.
 - Árbol de archivos con exclusión de dependencias y artefactos de build.
 - Detección y parseo de `package.json`.
