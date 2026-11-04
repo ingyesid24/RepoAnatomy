@@ -7,11 +7,35 @@
 [![Descargas](https://img.shields.io/github/downloads/ingyesid24/RepoAnatomy/total)](https://github.com/ingyesid24/RepoAnatomy/releases)
 [![Licencia: MIT](https://img.shields.io/badge/licencia-MIT-blue.svg)](LICENSE)
 ![Plataformas](https://img.shields.io/badge/plataformas-Linux%20%7C%20Windows%20%7C%20macOS-informational)
-[![Sponsor](https://img.shields.io/badge/sponsor-%E2%9D%A4-ea4aaa)](https://github.com/sponsors/ingyesid24)
+[![GitHub Sponsors](https://img.shields.io/github/sponsors/ingyesid24?label=Sponsor&logo=GitHub&color=ea4aaa)](https://github.com/sponsors/ingyesid24)
+[![Stars](https://img.shields.io/github/stars/ingyesid24/RepoAnatomy?style=social)](https://github.com/ingyesid24/RepoAnatomy/stargazers)
 
 **[Web y documentación](https://repoanatomy.vercel.app/)** · **[Descargar](https://github.com/ingyesid24/RepoAnatomy/releases/latest)** · **[Changelog](CHANGELOG.md)**
 
 RepoAnatomy es una aplicación de escritorio que analiza proyectos locales y presenta su estructura y señales arquitectónicas en una interfaz navegable. La versión `2.0` mantiene el soporte para proyectos JVM (Java y Kotlin) además de JavaScript y TypeScript.
+
+![RepoAnatomy: entiende cualquier codebase en minutos](https://repoanatomy.vercel.app/og-image.png)
+
+## ¿Para qué sirve?
+
+¿Llegas a un proyecto nuevo y no sabes por dónde empezar? Abre la carpeta en RepoAnatomy y en segundos verás:
+
+- 🗺️ **Mapa interactivo** de módulos, archivos e imports.
+- 🌐 **Rutas HTTP** de Express, NestJS y Spring Boot.
+- 📦 **Dependencias** de npm, Maven y Gradle.
+- 🔑 **Variables de entorno** que usa el código.
+- ✏️ **Abrir en tu editor** (VS Code, Cursor, IntelliJ…) con un clic.
+- 🔒 **100 % local**: tu código nunca sale de tu máquina.
+
+Soporta JavaScript, TypeScript, Java y Kotlin.
+
+## Inicio rápido
+
+1. Descarga el instalador de tu sistema en la [última release](https://github.com/ingyesid24/RepoAnatomy/releases/latest) (Linux `.AppImage`, Windows `.exe`, macOS `.dmg`).
+2. Ábrelo y pulsa **Seleccionar proyecto**.
+3. Elige tu proyecto y explora el mapa.
+
+La app se actualiza sola cuando hay una versión nueva.
 
 ## Versión, fase y descargas
 
@@ -348,3 +372,12 @@ Esta separación permite mover el análisis a un worker o sustituir el motor en 
 ## Contribuir
 
 Consulta [CONTRIBUTING.md](CONTRIBUTING.md) antes de abrir un pull request.
+
+## Apoya el proyecto
+
+RepoAnatomy es gratis y open source. Si te ahorra tiempo, puedes ayudar a que siga creciendo:
+
+- ⭐ [Dale una estrella en GitHub](https://github.com/ingyesid24/RepoAnatomy): ayuda a que más gente lo descubra.
+- ♥ [Patrocínalo en GitHub Sponsors](https://github.com/sponsors/ingyesid24): financia nuevos lenguajes, funciones y mantenimiento.
+- 🐛 [Reporta un bug o propone una idea](https://github.com/ingyesid24/RepoAnatomy/issues/new).
+- 📣 Compártelo con tu equipo o en redes.
